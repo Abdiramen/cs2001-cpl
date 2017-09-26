@@ -364,4 +364,139 @@ x = 5
         else:
             print("beep")
         ```
+
+## Higher Order Functions
+### Decorators
++ The @desc sytax is syntactic sugar for func = dec(func)
++ You can stack multiple decorators
+    ```
+    @d1
+    @d2
+    def fun():
+        pass
+
+    fun = d1(d2(fun))
+    ```
++ A decorator will clobber a rapped function's docstring `__name__`, and other
+  special attributes.
+  - Use functools.wrap to avoid this
+```python
+import time
+
+edf time_this(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        retval = fun(*args, **kwargs)
+        stop = time.time()
+        print("{} took {:03f} sec".format(func.__name__, stop-start)
+        return retval
+    return wrapper
+
+@time_this
+def add5(x):
+    time.sleep(1.0)
+    return x+5
+
+add5(10) # 15
+#print: Add 5 took 1.001 sec
+
+
+def add10(x):
+    time.sleep(20)
+    return x+10
+
+add10=time_this(add10)
+```
++ Use Case:
+    ```python
+    import functools 
+
+    def validate_int(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            integer_values = None
+            while True:
+                try:
+                    integer_value = int(func(*args, **args))
+                    return integer_value
+                except ValueError:
+                    print("Requires int")
+
+        return wrapper
+
+    @validate_int
+    def prompt_for_age():
+        return input("Enter your age: ")
+
+    prompt_for_age()
+
+    ```
++ Example:
+    ```python
+    def validate(const = int):
+        def decorator(func):
+            def wrapper(*args, **kwargs):
+                retval = None
+                while True:
+                    try:
+                        return const(func(*args, **kwargs))
+                    except:
+                        print("invalid value")
+                return wrapper
+        return decorator
+    ```
+
+## Packages
++ Structure a Python's module namespace using "dotted modules names"
+```
+main.py
+classrom/
+    __init__.py
+    utils.py
+    models/
+        __init__.py
+        assignment.py
+``
+
+```python
+# main.py
+import classroom.utilities
+classroom.utilities.grade()
+
+from classroom.models.assignment import Assignment
+a = Assignment()
+```
+
+    
+# Practice problems
+1. Consider the `to_bin()` and `count_forever()` generator functions from class:
+    - `to_bin(it)` returs an interable that converts every item fro it to its
+      binary representatino
+    - `count_forever(start=0)` returns an iterable that yiels start, start+1,
+      start+2, ...
+    - For each snippet, indicate whether it iterminates or not:
+        ```python
+        to_bin(count_forever()) # Yes, Generator object
+        (bin(x) for x in count_forever()) # Yes, Generator object
+        {x:bin(x) for x in count_forever()} # No
+        ```
+2. Define a function count and a variable init so that `reduce(count, my_list,
+   init)` would reduce a dictionary indicating the number of times each item
+   occurs in `my_list`:
+   ```python
+   from functools import reduce
+
+   my_list = ["they", "were", "the", "best", "of", "times", "they", "were",
+              "the", "worst", "of", "times"]
+
+   def count(count_dict, value):
+      count_dict.setdefault(value, 0)
+      count_dict[value] += 1
+
+      return count_dict
+
+
+   print(reduce(count, my_list, {}))
+   ```
+
     
