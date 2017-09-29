@@ -144,7 +144,7 @@ x = 5
     ```
 
 ### Custom Types
-+ [Class-based objects](##Classes)
++ [Class-based objects](#Classes)
 
 ## Assignment
 + Variables are dynamically typed
