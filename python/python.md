@@ -480,8 +480,9 @@ def send_message(sender, recipient, message_body, priority=1):
     # Function definition
 ```
 
-# Exception Handling
-## Errors (Kind of)
+## Exception Handling
+
+### Errors (Kind of)
 + Syntax Errors
     - your code is bad
     - Python can't read it
@@ -502,11 +503,11 @@ def send_message(sender, recipient, message_body, priority=1):
     - Not found until your code is interpreted
     - Raise Exceptions
 
-## What is Exception Handling?
+### What is Exception Handling?
 + Whenever a runtime error occurs, an exception is raised
 + Helps us track down and fix logical errors
 
-### How they work:
+#### How they work:
 + Whenever an exception is raised, it "bubbles up" through the call stack until it is caught **or** it reaches the top (of the call stack).
 + Exceptions (as implied) can be caught and handled.
 + Example
@@ -518,7 +519,7 @@ def send_message(sender, recipient, message_body, priority=1):
             print("Person has no name")
     ```
 
-### More detail about Exception
+#### More detail about Exception
 + All exceptions are instances of classes that derive form `BaseExceptin`
 + Most exception you'll use derived from`Exception`
 + There's a big list of built-in exceptions (Don't memorize it since it's a big waste of time and memory)
@@ -544,6 +545,31 @@ def send_message(sender, recipient, message_body, priority=1):
     ```
 + try of an `else` clause that works like `for`'s else
 + try also has `finally` which always runs. People use this with database connection often!
+
+## File i/o
+### reading
+```python
+f = open("file.txt")
+contents = f.read()
+print(contents)
+f.close()
+```
++ But with the contents manager, `with`, file are automatically closed when you leave the 'with' block.
+```python
+with open("file.txt") as f:
+    print(f.read())
+```
+### writing
+```python
+f = open("file.txt", mode="w")
+# f = open("file.txt, "w")
+f.write("stuff")
+f.close()
+
+# but this is better
+with open("file.txt, mode="w") as f:
+    f.write("stuff")
+```
 
 ## Higher Order Functions
 ### Decorators
