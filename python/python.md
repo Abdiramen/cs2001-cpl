@@ -596,6 +596,88 @@ with open("file.txt, mode="w") as f:
 + The import process requires running imported modules.
     - use `if __name__ == "__main__":` if you want your module to run as both a library and a program.
 
+## Variable Argument Lists
+```python
+def custom_print(*args):  # *args can be any name!
+    for i in args:
+        print("output:", i)
+custom_print(1, 2, 3, 4)
+
+
+def custom_print2(**kwargs):
+    for k,v in kwargs.items():
+        print("{}:{}".format(k,v))
+```
+
+The function definition for `format()` also uses star arguments: `str.format(*args, **kwargs)`
+
+### Star Magic
+```python
+# func(a,b,c)
+args = ["apple", "banana", "dog"]
+func(args) # nope
+func(*args) # func(a="apple", b="banana", c="dog")
+# length of args has to agree with the number of arguments func() takes
+
+d = {'a': 10, 'b': 12, 'c': 13}
+func1(d) # problem
+func1(**d) # oh man it works!
+```
++ Don't use starmagic without a good reason!
++ Keyword parameters must come after position arguments
++ Arbitrary argument lists comes after positional arguments but before keyword arguments
+    - Example
+        ```python
+        def func(a, b, *args, d=10, e=11, **kwargs):
+            pass
+        ```
+
+## Comprehensions, Expressions, and Generators
+### List Comprehension!!!
+```python
+    [int(x) for x in["10","20"]] # list created immidiatly
+```
+### Dictionary Comprehension
+```python
+{k: k.upper() for k in ["a","b"]} # {'a':'A', 'b':'B'}
+```
+
+### Generator function!
++ An easy way to make a custom iterable
++ returns an object of type `generator`
++ returns `yields` one item at a time
++ It determines the next item yield on the fly
++ Cannot index; cannot slice
++ Example
+    ```python
+    def count_forever(start=0):
+        i = start
+        while True:
+            yield i
+            i += 1
+
+
+    for i in count_forever():
+        print(x)
+        if x == 10:
+            break
+    ```
+
+### Generator Expressions
+```python
+    nums = (bin(x) for x in it)
+    nums = (bin(x) for x in range(5) if x % 2 == 0)
+    # the if statement at the end is called a filtering expression
+```
+
+#### A generator expression with multiple for
+```python
+g = ((x, y) for x in range(3) for y in range(3))
+h = ((x, y) for x in range(3) for y in range(x))
+nested = (((x, y) for x in range(3)) for y in range(3))
+# you can generate generators!!!!
+```
+
 ## Higher Order Functions
 ### Decorators
 + The `@dec` syntax is syntactic sugar for `func = dec(func)`
