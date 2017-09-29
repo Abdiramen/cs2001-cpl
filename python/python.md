@@ -47,7 +47,7 @@ x = 5
 - Type is `list`
 - Mutable sequence of elements
     ```python
-    x = [1] 
+    x = [1]
     x.append(2)
     ```
 - Elements may be of differing types
@@ -77,7 +77,7 @@ x = 5
         - Any sub-lists or sub containers will share memory space with 
           original
     + Start at the first slice index (start index)
-    + Stop before the secinod index (stop index)
+    + Stop before the second index (stop index)
     + In set notation `[start_index, stop_index)`
     + Example:
         ```python
@@ -96,7 +96,7 @@ x = 5
 + type is `tuple`
 + Examples:
     - `(1,2)`
-    - `(1, "frog")` 
+    - `(1, "frog")`
     - `("frog", )`
         + Comma is very important due to order of operations
     - `()` - Empty tuple
@@ -118,11 +118,11 @@ x = 5
     - Works the same as a [list](#list)
 
 #### Dictionary
-+ Iterable (iterates ove rkeys by default
++ Iterable (iterates over keys by default)
 + type is `dict`
 + Maps keys to values
 + Keys and values can vary in type
-    - Keys `MUST` be hashable
+    - Keys `MUST` be hashtable
 + Not a sequence, order does not matter
 + Examples
     ```python
@@ -224,11 +224,11 @@ x = 5
         + returns True or False
             ```python
             x in s # returns True if x is a member of y, otherwise False
-            ``` 
+            ```
         + Example:
             ```python
             x = [1, 2, 3, 4]
-            4 in x # False 
+            4 in x # False
             50 in x # False
 
             y = {"a": 10, "b":50}
@@ -312,7 +312,7 @@ x = 5
         [] == False # False
         bool([]) == False # True
         ```
-+ Aside from numeric types, objets of different types don't compare equal
++ Aside from numeric types, objects of different types don't compare equal
 ## Loops
 + `while`
     - Pre-check loop
@@ -367,7 +367,7 @@ x = 5
 
 ## Higher Order Functions
 ### Decorators
-+ The @desc sytax is syntactic sugar for func = dec(func)
++ The `@desc` syntax is syntactic sugar for `func = dec(func)`
 + You can stack multiple decorators
     ```
     @d1
@@ -383,7 +383,7 @@ x = 5
 ```python
 import time
 
-edf time_this(func):
+def time_this(func):
     def wrapper(*args, **kwargs):
         start = time.time()
         retval = fun(*args, **kwargs)
@@ -409,7 +409,7 @@ add10=time_this(add10)
 ```
 + Use Case:
     ```python
-    import functools 
+    import functools
 
     def validate_int(func):
         @functools.wraps(func)
@@ -446,6 +446,36 @@ add10=time_this(add10)
         return decorator
     ```
 
+## Map, Filter, and Reduce (aka the math Trinity)
+All three are higher order function that work like generator expressions.
++ `map(func, iterable)`
+    - Returns a new iterable that yields `func(x)` for each item in the iterable
+    - Example
+        ```python
+        map(str, lst)
+        (str(x) for x in lst) # works the same as above
+        ```
+        The only difference between the two examples above is that
+        `map(func, it)` returns a `map` object.
++ `filter(func, iterable)`
+    - Returns a new iterable that yields `x` for each item in the iterable
+    **only if** `func(x)` is truthy.
+    - Example
+        ```python
+        filter(is_even, lst)
+        (x for x in lst if is_even(x))
+        ```
++ `functools.reduce(func, iterable [, initial])`
+    - applies a function of two arguments cumulatively to the items of
+    `iterable` from left to right, so as to reduce an iterable into a
+    single value.
+    - Example
+        ```python
+        vals = [0, 2, 4, 6]
+        functools.reduce(lambda x, y: x + y, vals) # 12
+        functools.reduce(lambda x, y: x + y, vals, 10) # 22
+        ```
+
 ## Packages
 + Structure a Python's module namespace using "dotted modules names"
 ```
@@ -467,20 +497,20 @@ from classroom.models.assignment import Assignment
 a = Assignment()
 ```
 
-    
+
 # Practice problems
 1. Consider the `to_bin()` and `count_forever()` generator functions from class:
-    - `to_bin(it)` returs an interable that converts every item fro it to its
+    - `to_bin(it)` returns an iterable that converts every item fro it to its
       binary representatino
-    - `count_forever(start=0)` returns an iterable that yiels start, start+1,
+    - `count_forever(start=0)` returns an iterable that yields start, start+1,
       start+2, ...
-    - For each snippet, indicate whether it iterminates or not:
+    - For each snippet, indicate whether it it terminates or not:
         ```python
         to_bin(count_forever()) # Yes, Generator object
         (bin(x) for x in count_forever()) # Yes, Generator object
         {x:bin(x) for x in count_forever()} # No
         ```
-2. Define a function count and a variable init so that `reduce(count, my_list,
+2. Define a function count and a variable in it so that `reduce(count, my_list,
    init)` would reduce a dictionary indicating the number of times each item
    occurs in `my_list`:
    ```python
@@ -499,4 +529,3 @@ a = Assignment()
    print(reduce(count, my_list, {}))
    ```
 
-    
