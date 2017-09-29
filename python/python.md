@@ -365,6 +365,69 @@ x = 5
             print("beep")
         ```
 
+## Builtin Functions
++ `print(*object, sep=' ', end='\n', file=stdout, fush=False)`
+    - Prints things to the text stream (file)
+      - Non-keyword arguments are converted to `str` using `str()`
+      - Items are separated by `sep`
+      - output ends wit `end`
+    - If no objects are provided, you'll still see `end`
++ `sorted(iterable[,key][,reverse])`
+    - Returns a new sorted list based on the iterable in ascending order. The returned list will be a shallow copy.
+    - Not the same as `iterable.sort()` member function
++ `len(thing)`
+    - Returns the length of thing
+    - works on `str`, `dict`, `list`, `tuple` and some other types, too
++ `help(object)`
+    - Opens documentation for that object
+    - Useful in the interpreter
+    - Quits with q
+
++ `enumerate(iterable, start=0)`
+    - Returns an object of type `enumerate` - an iterable that yields tuples - `(index, value)`.
+        ```python
+        letters = ['a','b','c','d']
+        print( list(enumerate(letters)))
+        for i, l in enumerate(letters): # really cool actually
+            print(l, "is at index", i)
+        ```
++ `range(start, stop[, step])`
+    - returns an object of type range which represents an immutable sequence of numbers
+    - useful for loop a set number of times.
+    - Don't use this as a crutch
+    ```python
+    L = [1, 2, 3]
+    for i, v in enumerate(L): # pretty good idea
+          print(v)
+          L[i] = 10
+    ```
++ `input(prompt-message)`
+    - like `cin`; prompts the user and reads from standard in.
++ "Constructors"
+    - `int()`, `float()`, `str()`, `list()`, `dict()`, `tuple()`, etc...
+
+## Defining Function
++ Base syntax
+    ```python
+    def  <function name>(<argument>):
+        <body>
+    ```
++ Arguments
+    - Values must be provided for each argument in order
+    - Arguments are always "[passed] by object reference"
+        ```python
+        def func(s):
+            a.append("frog")
+            a = ["giraffe"]
+            a.append("thingo")
+        x = ["apple"]
+        y = x
+        func(y)
+        print(x)
+        ```
++ Functions always return something.
+    - If you don't explicitly return something from a function, that function will implicitly return `None`.
+
 ## Higher Order Functions
 ### Decorators
 + The `@desc` syntax is syntactic sugar for `func = dec(func)`
