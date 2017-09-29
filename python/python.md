@@ -561,8 +561,7 @@ with open("file.txt") as f:
 ```
 ### writing
 ```python
-f = open("file.txt", mode="w")
-# f = open("file.txt, "w")
+f = open("file.txt", mode="w") # f = open("file.txt, "w")
 f.write("stuff")
 f.close()
 
@@ -570,6 +569,32 @@ f.close()
 with open("file.txt, mode="w") as f:
     f.write("stuff")
 ```
+
+## Classes
++ Generally, though not required, classes are written in their own modules.
++ `self` is the calling object
+    - you must use `self`{.python} to return to member funcs/vars in the definition of a class
++ member functions are called methods
++ there are no private members.
+    - The convention for "don't touch this" is naming with a single underscore.
++ Special member function usually start/end with `__`
+    - "overloading operators"
+    - Used by constructors
+
+[Wisely's python module](http://cpl.mwisely.xyz/modules/python) has some nice examples and further information
+
+## Modules
++ You can split python projects into multiple files known as modules.
++ You can `import` code `from` one module to another.
++ You can use a module like a library or like a program.
+    - You don't run libraries, they have definitions you use.
+    - You just use a program.
+
+### Importing
++ `import module`: imports whole module. You can access the members using the dot operator.
++ `from module import thing`: you can import a specific thing from a module also.
++ The import process requires running imported modules.
+    - use `if __name__ == "__main__":` if you want your module to run as both a library and a program.
 
 ## Higher Order Functions
 ### Decorators
