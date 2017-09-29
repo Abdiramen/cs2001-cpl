@@ -428,9 +428,43 @@ x = 5
 + Functions always return something.
     - If you don't explicitly return something from a function, that function will implicitly return `None`.
 
+## Advanced loops
+Instead of iterating over every item you can use a slice to skip values.
++ Example
+    ```python
+    basket = ['Crabapple', 'Banana', 'Pineapple', 'Mango', 'Nectarine']
+    message = ['this', 'straight', 'is', 'to ', 'a', 'the, 'message', 'moon']
+
+    for fruit in basket[1:]:
+        print(fruit)
+
+    for word in message[::2]:
+        print(word)
+    ```
+
+### else
+Both `while` and `for` have an `else` statement.
+- Runs if loop finishes without reaching a `break`.
+    - Example
+        ```python
+        x = 0
+        while x < 5:
+            print(x)
+            x += 1
+        else:
+            print("beep beep")
+
+        numbers = [5, 6, 7, 8, 9, 10]
+        for i in numbers:
+            print(i)
+        else:
+            print('We, counted to 10!')
+
+        ```
+
 ## Higher Order Functions
 ### Decorators
-+ The `@desc` syntax is syntactic sugar for `func = dec(func)`
++ The `@dec` syntax is syntactic sugar for `func = dec(func)`
 + You can stack multiple decorators
     ```
     @d1
