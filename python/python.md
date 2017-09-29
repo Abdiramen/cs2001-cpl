@@ -128,7 +128,7 @@ x = 5
     ```python
     # Instantiating dicts
     x = {"a": "frog", "b": "giraffe", "c", "apple"}
-    y = {"a": "frog", 10: "giraffe", "c", 50} # Varying keys and values 
+    y = {"a": "frog", 10: "giraffe", "c", 50} # Varying keys and values
     z = {} # empty dict
 
     # Getting Items
@@ -283,7 +283,7 @@ x = 5
     ```
 + No parentheses around the expression
 + Don't forget the colons
-+ No curly braces; watch your indentation (for you c++ programers)
++ No curly braces; watch your indentation (for you c++ programmers)
 ### Truthiness / Falsiness
 + Truthiness  / Falsiness determines whether the conditional evaluates if the
   statement is true or false
@@ -300,7 +300,7 @@ x = 5
     - Empty built-in data structures
 + Truthy
     - Anything not listed in `Falsey`
-+ bool() function
++ `bool()` function
      ```python
      bool("foo") # True
      bool([]) # False
@@ -446,7 +446,7 @@ add10=time_this(add10)
         return decorator
     ```
 
-## Map, Filter, and Reduce (aka the math Trinity)
+### Map, Filter, and Reduce (aka the math Trinity)
 All three are higher order function that work like generator expressions.
 + `map(func, iterable)`
     - Returns a new iterable that yields `func(x)` for each item in the iterable
@@ -475,6 +475,19 @@ All three are higher order function that work like generator expressions.
         functools.reduce(lambda x, y: x + y, vals) # 12
         functools.reduce(lambda x, y: x + y, vals, 10) # 22
         ```
+
+### Partial Function Application
+This is when you call a function but don't give it all the arguments needed.
++ Example
+    ```python
+    import functools
+    def add(x, y)
+        return x + y
+    add3 = functools.partial(add, 3) # lambda x: add(3, x)
+    add3(7) # 10
+
+    take_while_even = functools.partial(take_while, is_even)
+    ```
 
 ## Packages
 + Structure a Python's module namespace using "dotted modules names"
