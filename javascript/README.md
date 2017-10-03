@@ -159,6 +159,12 @@ x = 3;
     - `++`, `--`
 + Comparison
     - `>=`, `<=`, `<`, `>`, `==`, `!=`, `===`, `!==`
++ `typeof`
+    ```javascript
+    console.log(type_of "frog"); //string
+    console.log(type_of 12); //number
+
+    ```
 
 ```javascript
 var bar = 5;
@@ -203,13 +209,28 @@ baz += 1; // 2
 ##### Type conversion
 + Number && String
     - String is converted to number
-    ```Javascript
-    "0" < 3; //true
-    "0" > 3; //false
-    // "a" -> NaN
-    "a" > 3; // false
-    "a" < 3; // false
+        ```Javascript
+        "0" < 3; //true
+        "0" > 3; //false
+        // "a" -> NaN
+        "a" > 3; // false
+        "a" < 3; // false
+        ```
++ Bool && String || Number
+    + Bools are converted to numbers
++ Object && String || Number
+    + If an object is compared to a string or a number, Javascript will try to
+      use the `toString()` method or `valueOf()` method. Otherwise, an error is
+      generated
++ Object && Primative
+    - Objects are converted to primitive types if compared with a primitive
++ Objects are compared
+    ```javascript
+    var x = {banana: 10};
+    var y = {banana: 10};
+    x == y; // False
     ```
+    - Does an identity check of memory address of the object
 
 
 ## Scope
@@ -288,5 +309,243 @@ f(1,5,2_; // 552
         - Functions
         - objects
         - Regular Expressions
+
+## Falsy / Truthy values
+### Falsy
++ false
++ null
++ undefined
++ 0
++ NaN
++ empty string ("")
+### True
+All others.
+
+## Control Structures
++ Block Statements
+    ```javascript
+    {
+        ...
+    }
+    ```
++ `If/else if/Else`
+    ```javascript
+    if(foo()){
+        ...
+    }else if(foo()){
+        ...
+    }else if(foo()){
+        ...
+    }else(foo()){
+        ...
+    }
+    ```
++ Switch Statement
+    - Fallthrough as in `C++`
+    ```javascript
+    switch(expression){
+        case lab1:
+            ... // Will fall through
+        case label2:
+            ...
+            break;
+        ...
+        default:
+            ...
+    }
+    ```
+
+## Looping Constructs
++ `For`
+    ```javascript
+    for(let i=0; i < 10; i++){
+        ...
+    }
+    ...
+    ```
++ `do-while`
+    - Post-check
+    ```javascript
+    do {
+        ...
+    }while(expression);
+    ```
++ `while`
+    - Pre-check
+    ```javascript
+    while(expression){
+        ...
+    }
+    ```
++ Break
+    - Breaks the inner-most enclosing loop statement
+        ```javascript
+        while(...){
+            while(...){
+                while(...){
+                    if(...){
+                        break;
+                    }
+                }
+            }
+        }
+        ```
+    - Except with labels:
+        ```javascript
+        outerloop:
+        while(...){
+            while(...){
+                while(...){
+                    if(...){
+                        break outerloop;
+                    }
+                }
+            }
+        }
+        ```
+        + Will break out of the loop labelled
+
+
++ Continue
+    - Skips to the next iteration of the inner-most enclosing loop
+    ```javascript
+    while(...){
+        while(...){
+            while(...){
+                if(...){
+                    continue
+                }
+            }
+        }
+    }
+    ```
+    - Except with labels:
+        ```javascript
+        outerloop:
+        while(...){
+            while(...){
+                while(...){
+                    if(...){
+                        continue outerloop;
+                    }
+                }
+            }
+        }
+        ```
+        + Will skip to the next iteration of the labelled loop
+
++ `for..in` loop
+    + Iterates over all enumerable, distinct properties of an object in
+      original insertion order.
+        ```javascript
+        let obj = {b:2, c:3};
+        obj.a = 1;
+
+        for(let x in obj){
+            console.log(x);
+        }
+        // b
+        // c
+        // a
+        ```
+
+        ```javascript
+        let lst = ['h','e','l', 'l', 'o']
+        lst.name = "hello";
+
+        for(let x in lst){
+            console.log(x)
+        }
+        // 0
+        // 1
+        // 2
+        // 3
+        // 4
+        // name
+        ```
++ `for...of`` loop
+    - Iterates over elements of an iterable object:
+        - Array
+        - String
+        - etc.
+    ```javascript
+    let arr=[3,5,7];
+    arr.foo = "bar";
+
+    for(let x of arr){
+        console.log(arr)
+    }
+    // 3
+    // 5
+    // 7
+
+    for(let x of "abc"){
+        console.log(x);
+    }
+    // a
+    // b
+    // c
+    ```
++ `forEach()` method of Array (like `map`)
+    ```javascript
+    let arr=[3,5,7];
+    arr.forEach(function(value){ //lambda function
+        console.log(value)
+    })
+    // 3
+    // 5
+    // 7
+
+    arr.forEach(function(value){ //lambda function
+        value += 1;
+    })
+    // 4
+    // 6
+    // 8
+
+    ```
+    + Cannot break or continue
+    + Return values are ignored
+
+
+## Functions
+### Basics
+```javascript
+"use strict";
+function multiply(a,b){
+    return a*b;
+}
+
+multiply(5, 2); // 10
+multiply(3,5,4); // 15
+multiple(5); // NaN 5 * undefined
+```
++ No function overloading
++ First-class because they are objects
++ Have properties
++ Can be passed as a param
++ Can returned from other functions
++ Has higher-order function
+
 # Documentation and other Resources
 + [Mozilla Developer Network (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+# Review Questions
++ Fill in the blanks using words from the work bank:
+    - It is acceptable to explicitly return **null** from a function. We never
+      explicitly return **undefined**.
++ Question 2
+    ```javascript
+    function f(){
+        var x;
+        console.log(x); # Undefined
+    }
+
+    f();
+    console.log(x); # Exception
+    ```
+    - Explain what happens when the program is run. Include ouput of a
+      description of any errors encountered.
+        - The function will log undefined within the function due to
+          function-level hoisting.
+        - The `console.log(x)` at the bottom will create an exception
