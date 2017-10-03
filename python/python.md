@@ -122,7 +122,7 @@ x = 5
 + type is `dict`
 + Maps keys to values
 + Keys and values can vary in type
-    - Keys `MUST` be hashtable
+    - Keys `MUST` be hashable
 + Not a sequence, order does not matter
 + Examples
     ```python
@@ -520,8 +520,8 @@ def send_message(sender, recipient, message_body, priority=1):
     ```
 
 #### More detail about Exception
-+ All exceptions are instances of classes that derive form `BaseExceptin`
-+ Most exception you'll use derived from`Exception`
++ All exceptions are instances of classes that derive form `BaseException`
++ Most exception you'll use derived from `Exception`
 + There's a big list of built-in exceptions (Don't memorize it since it's a big waste of time and memory)
 + You can also define your own exception (ooh that's cool)
 + Example
@@ -533,7 +533,7 @@ def send_message(sender, recipient, message_body, priority=1):
     except FileNotFoundError as e:
         print("Caught:", e)
 
-    # You cna catch several types of Exception with on
+    # You can catch several types of Exception with on
     # try-except block
     try:
         print("beep")
@@ -635,7 +635,7 @@ func1(**d) # oh man it works!
 ## Comprehensions, Expressions, and Generators
 ### List Comprehension!!!
 ```python
-    [int(x) for x in["10","20"]] # list created immidiatly
+    [int(x) for x in["10","20"]] # list created immidiately
 ```
 ### Dictionary Comprehension
 ```python
