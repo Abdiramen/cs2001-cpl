@@ -527,6 +527,121 @@ multiple(5); // NaN 5 * undefined
 + Can returned from other functions
 + Has higher-order function
 
+### Arguments
+```javascript
+function (arr){
+    arr.push("frog");
+    arr = [];
+    arr.push("giraffe");
+}
+
+var x = [1,2,3];
+f(x);
+console.log(x) # [1,2,3,"frog"]
+```
++ Arguments are passed by value but for objects the value is always a
+  reference.
+    - "Pass by object reference"
++ `...rest`
+    ```javascript
+    function concat(...rest){
+        let result = "";
+        for(lex x of rest){
+            result += x;
+        }
+
+        return results;
+    }
+
+    console.log(concat(1,2,3,4,5)) // "12345"
+    ```
++ Default arguments
+    ```
+    function f(a, b=10){
+        // stuff
+    }
+
+    f(5); // b is 10
+    f(5,6); // b is 6
+    ```
+### Anonymous Functions
+#### Function Expression
+```javascript
+function foo(){
+    return 3;
+}
+
+console.log(foo()); // 3
+log(foo); // [Function]
+
+var bar = function(){
+    return 3;
+}
+
+log(bar()) // 3
+log(bar); // [Function]
+```
+
+```javascript
+var sq = function(x){
+    return x*x;
+}
+```
+
+```javascript
+// F is a function
+function map(f, a){
+    let result = [];
+
+    for(let x of a){
+        result.push(f(a))
+    }
+
+    return result;
+}
+
+map(function(x){return x*x;}, [1,2,3]);
+// [1,4,9]
+```
+#### Arrow Expression
+```javascript
+map((x)=>{return x*x;}; [1,2,3]);
+```
++ Defines a function that does not bind certain values:
+    - this
+    - super
+    - arguments
+    - etc...
++ Is not appropriate to use as an object method (member function).
++ Is sort of like a python lambda function
+
+### Function scoping & Hoisting
++ Functions must be in scope to be called
++ Function declarations are hoisted (both name and def), but function
+  expressions are not.
+```javascript
+log(square(5)); // 25
+function square(x){return x*x;}
+```
+```javascript
+log(square(5)); // TypeError (not defined)
+var square = function(x){return x*x;};
+```
+
+```javascript
+"use strict";
+let num1=10, num2=3;
+
+function multiply(){
+    var x = 20;
+    return num1 * num2;
+}
+
+console.log(multiply()); // 30
+console.log(x); // ReferenceError
+```
+
+
 # Documentation and other Resources
 + [Mozilla Developer Network (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
