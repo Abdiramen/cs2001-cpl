@@ -804,7 +804,7 @@ This is when you call a function but don't give it all the arguments needed.
 
 ## Packages
 + Structure a Python's module namespace using "dotted modules names"
-```
+```python
 main.py
 classrom/
     __init__.py
@@ -812,7 +812,7 @@ classrom/
     models/
         __init__.py
         assignment.py
-``
+```
 
 ```python
 # main.py
