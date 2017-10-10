@@ -641,6 +641,185 @@ console.log(multiply()); // 30
 console.log(x); // ReferenceError
 ```
 
+```javascript
+fucntion get_score(){
+    let name = "leopard", points = 50;
+    function format_score(){
+        return name + ": " + points;
+    }
+
+    return format_score;
+}
+
+console.log(get_score); // [Function]
+console.log(get_score()); // [Function]
+console.log(get_score()()); // [String]
+```
+
+### Immediately invoked function expression (IIFE)
++ Sytnax
+    ```javascript
+    (function(){ .... })();
+    ```
+
+```javascript
+let foo = (function(){...});
+foo(); // (function(){...})();
+```
+
+```javascript
+var x = (function(){return 3;})();
+log(x); // 3
+```
+
+### Function Closures
++ Functions that can retain access to internal variables but not accessible by
+  outside scope
+```javascript
+let sum=0;
+function acc(num){
+    sum += num;
+    console.log(sum);
+}
+
+acc(4); // 4
+acc(5); // 9
+sum = 0;
+acc(3); // 3
+```
+
+```javascript
+function acc(num){
+    let sum = 0;
+    sum += num;
+    console.log(sum);
+}
+
+acc(4); // 4
+acc(5); // 5
+sum = 10; // reference error
+```
+
+```javascript
+function acc_factory(){
+    let sum = 0;
+    return function(num){
+        sum += num;
+        log(sum);
+    };
+}
+
+let acc = acc_factory();
+acc(4); // 4
+acc(5); // 9
+let foo = acc_factory(); // New `sum` variable
+foo(3); // 3
+```
+
+```javascript
+var acc = (function(){
+    let sum = 0;
+    return function(num){
+        sum += num;
+        console.log(sum);
+    };
+})();
+
+acc(4); // 4
+acc(5); // 9
+sum = 10; // reference error
+```
+
+```javascript
+// acc only increments by 5
+var acc = (function(num){
+    let sum = 0;
+    return function(){
+        sum += num;
+        console.log(sum);
+})(5);
+
+acc() // 5
+acc() // 10
+```
+
+## Importing
++ All files are automatically wrapped in an IIFE, making imports harder
++ `require` keyword works a alot like import
++ All files must be explicitly exported using `module` object.
+```javascript
+//main.js
+// IIFE
+(function(){
+    varfuncs = require("./funcs.js")
+    funcs.foo(); // logs "foo"
+})();
+```
+
+```javascript
+//funcs.js
+// IIFE
+(function(){
+    function foo(){
+        console.log("foo");
+    }
+
+    // key:value pair of what you want to export
+    module.exports = {foo: foo};
+    // or
+    module.exports = foo;
+    // There is also exports
+})();
+```
+### Exports and imports
++ ES6 added `export` and `import` Keywords that make Js feel more like Python
+  and company
++ They don't work w/ most JS engines if you're going to use them, you need a
+  tanspiler like Babel.
++ We'll only use module.exports in CPL
+
+## Asynchrony
+### Call Function Stack
+```javascript
+// main.js
+function multiply(a,b){
+    return a*b;
+}
+
+function square(n){
+    return multiply(n,n)
+}
+
+function logSquare(n){
+    let n2 = square(n)
+    console.log(n2);
+}
+
+logSquare(10);
+```
+1. On the very bottom of our call stack will be the `main.js IIFE`.
+2. Then `logSquare(10)` is pushed to the call stack.
+3. Then, `square(10)` will be pushed to the call stack.
+4. Then, `multiply(10,10)` will be pushed to the call stack.
+5. `Mulitply` will be popped, returning 100.
+6. `Square` will be popped returning 100.
+7. `console.log(n2)` is pushed to the call stack.
+8. `console.log(n2)` is popped off the stack.
+9. `logSquare` is popped off the call stack.
+10. The `main.js IIFE` will be popped off the call stack.
+
+```javascript
+(function f(){
+    console.log("frog");
+    f();
+})();
+// Stack overflow
+```
+
+### Event Queue
++ Event Queue passes data to the call stack when the call stack is clear
+
+
 
 # Documentation and other Resources
 + [Mozilla Developer Network (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
