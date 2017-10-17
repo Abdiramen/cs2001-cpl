@@ -819,6 +819,129 @@ logSquare(10);
 ### Event Queue
 + Event Queue passes data to the call stack when the call stack is clear
 
+### Asynchronous Programming and Callbacks
+```javascript
+'use strict';
+
+const fs = require('fs');
+const log = console.log;
+
+// fs.readdir takes a directory and callback. A function to be called after
+execution of the function.
+fs.readdir('./stuff', function(err, files){
+    if(err != null){
+        log("Uh oh!");
+        return;
+    }
+
+    if(!files.includes("my_file.txt"){
+        log("Uh oh!");
+        return;
+    }
+
+    fs.readFile('./stuff/my_file.txt', function(err, data){
+        if(err != null){
+            log("Uh oh!");
+            return;
+        }
+
+        if(!files.includes("my_file.txt"))j{
+            log("Uh oh!");
+            return;
+        }
+
+        let new_data = data + "beep\n";
+        fs.writeFile("./stuff/my_file.txt", new_data, function(err){
+            if(err != null){
+                log("Uh oh!");
+            }
+
+            fs.readFile('./stuff/my_file.txt', function(err, data){
+                log("my_file.txt now contains...");
+                log(data);
+            });
+        });
+    });
+});
+```
+
+### Promises
++ A promise object...
+    - represents the eventual completion (or failure) of an async options, as
+      well as its resulting value.
+    - Allows you to associate handlers (functions) iwth an async actions
+      eventual success or failure reason.
+    - Is in one of three states:
+        1. **pending** - initial state
+        2. **fulfilled** - success state
+        3. **rejected** - failure state
+    - Instead of registering callbacks, we tell a Promise what to do if a
+      computation succeeds or fails:
+        1. `.then(<succes handler>)`
+            a. If you succeed, then do this.
+        2. `.catch(<failure handler>)`
+            a. If you fail, then catch the error and do this.
++ Modern JS libraries use Promises a lot.
++ Not all libraries are written to use Promises.
++ Node v 6.11 has `Promise`
++ Node v 8.x also has Promise & `utils.promisify()`
+
+#### Promise Chaining
++ Promise `.then()` returns promises which can then be acted on.
+
+#### Example
+```javascript
+'use strict`;
+// Creating a promise out of a Node-style callback function
+const readFileP = function(path){
+    return new Promise(
+        function(resolve, reject){
+            fs.readFile(path, fucntion(err,data){
+                if(err != null){
+                    reject(err);
+                }else{
+                    resolve(data);
+                }
+            });
+        }
+    );
+}
+
+
+// Using promise
+readdirP('./stuff/').then(
+    function(files){
+        if(!files.includes("my_files.txt")){
+            raise "Oh no!";
+        }
+
+        return readFileP('./stuff/my_file.txt');
+    }
+).then(
+    function(data){
+        let new_data = data + "beep";
+        return writeFileP('./stuff/my_file.txt', new_data);
+    }
+).then(
+    function(){
+        return readFileP('./stuff/my_file.txt');
+    }
+).then(
+    function(data){
+        console.log("Message");
+        console.log(data);
+    }
+).catch(
+    function(err){
+        console.log("Uh oh!");
+    }
+);
+```
+
+
+## Templating
++ MISSING: Objects, new operators, prototypes, etc.
+
 
 
 # Documentation and other Resources
@@ -843,3 +966,23 @@ logSquare(10);
         - The function will log undefined within the function due to
           function-level hoisting.
         - The `console.log(x)` at the bottom will create an exception
++ Draw the stack, queue, event loop, and Node.js. Show the state of each
+  component 2.5 seconds after the program started. Label and describe:
+    ```javascript
+    'use strict';
+
+    console.log('A');
+    setTimeout(function tina() (){
+        sonole.log('B');
+    }, 3000);
+
+    setTimeout(function gene(){
+        setTimeout(function louise(){
+            console.log('C');
+        }, 2000);
+
+        console.log('d');
+    }, 2000);
+
+    console.log('E');
+    ```
