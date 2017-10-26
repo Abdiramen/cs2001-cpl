@@ -129,3 +129,95 @@
         ```
 + `_` is the blank identifier
     - Used for ignoring unwanted values
+
+## Variable Declaration
++ Because unused variables are a compiler error, it is common practice to
+  declare variables right before you're going to use them
++ Don't worry about trying to declare al variables at the top of a function.
+
+### Constants
++ Automatically deduces type
++ Unused constants are not a compiler error
+```go
+const A = "frog"
+const B string = "frog"
+const (
+    x string = "frog"
+    y int = 10
+    z = false
+)
+```
+
+### Pointers
++ A pointer stores the address of a variable of a given type
+```go
+var x *int // pointer named x that points to an int 
+```
++ Pointer to an array
+    ```go
+    var y *[3]int // pointer named y that points to an array of 3 ints
+    ```
++ The zero value for a pointer in `nil`
++ Go does not permit pointer arithmetic
+
+```go
+package main
+import "fmt"
+
+func main(){
+    x := [3]int{1,2,3} // type: [3]int
+    y := x // type: [3]int
+    fmt.Println(x) //[1,2,3]
+    fmt.Println(y) //[1,2,3]
+    y[1] = 10
+    fmt.Println(x) //[1,2,3]
+    fmt.Println(y) //[1,10,3]
+}
+```
+
+```go
+package main
+import "fmt"
+
+func main(){
+    x := &[3]int{1,2,3} // type: *[3]int
+    y := x // type: *[3]int
+    fmt.Println(x) //[1,2,3]
+    fmt.Println(y) //[1,2,3]
+    y[1] = 10
+    fmt.Println(x) //[1,10,3]
+    fmt.Println(y) //[1,10,3]
+}
+```
+
+#### Allocating Memory
++ How do I know if my variables are on the heap or stack?
+    - It doesn't matter; don't worry bout it
+    - The compiler runtime and garbage collector will handle it for you
++ Functions
+    - `new (T)`
+        + Allocates storage for a variable of type T at runtime
+        + Returns a pointer (*T) pointing to the allocated variable
+        + The pointed-to value is zeroed
+        ```go
+        x := new(int) //*int
+        var y *int //*int
+
+        x // 0
+        y // nil
+        ```
+    - `make(T, args)`
+        + Creates slices, maps, and channels
+        + Returns an initialized value of type `T` (not *T)
+            - Slices, maps, and channels require allocation and initialzation
+              before use
++ Examples
+    ```
+    function main(){
+        x := new([3]int)
+        y := x
+        y[1] = 5
+        fmt.Println(x) // [0,5,0]
+        fmt.Println(y) // [0,5,0]
+    }
+    ```
