@@ -226,7 +226,7 @@ func main(){
 - Indexed must be non-negative ints
 - Accessing index X of array/slice A outside range 0 <= x < len(a) causes a runtime panic
 
-## Creating Slices
+### Creating Slices
 - Literal Slice
     - slice of a slice
     ```go
@@ -246,7 +246,7 @@ func main(){
     len(s) //6
     cap(s) //10
     ```
-## Slicing Arrays and Slices
+### Slicing Arrays and Slices
 ```go
 a := [8]int{1,2,3,4,5,6,7,8}
 s := a[2:len(a) - 2]
