@@ -221,3 +221,46 @@ func main(){
         fmt.Println(y) // [0,5,0]
     }
     ```
+
+## Slices
+- Indexed must be non-negative ints
+- Accessing index X of array/slice A outside range 0 <= x < len(a) causes a runtime panic
+
+## Creating Slices
+- Literal Slice
+    - slice of a slice
+    ```go
+    s := []int{1,2,3,4,5,6}
+    s[0] // 1
+    t := s[1:3] // [2,3] is a slice
+    len(s) // 6
+    cap(s) // 6
+    t[0] = 1
+    s[2] // 1 // s and t share a backing array
+    ```
+    - slice
+    ```go
+    s := make([]int, 6,10)
+    s[0] // 0
+    t := s[1:3]
+    len(s) //6
+    cap(s) //10
+    ```
+## Slicing Arrays and Slices
+```go
+a := [8]int{1,2,3,4,5,6,7,8}
+s := a[2:len(a) - 2]
+fmt.Println(s) //[3,4,5,6]
+s[0] //3
+s[1] //4
+t = s[1:3] // [4:5]
+s[4] // panic
+```
+
+# Operators
+- The usual C suspects
+    - + - * / % : int float complex and str
+    - & | ^ : only int
+    - << : lhs int
+    - >> : rhs int
+- `++` and `--` are statements and not expressions
