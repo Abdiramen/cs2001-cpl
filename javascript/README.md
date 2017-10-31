@@ -176,7 +176,7 @@ baz += 1; // 2
 ```javascript
 1 + "foo"; // "1foo"
 "foo" + false; // "foofalse"
-"foo" + "bra"; // "foobar"
+"foo" + "bar"; // "foobar"
 ```
 
 ### Comparison in-depth
